@@ -1,4 +1,4 @@
-![Js in 30 days Banner](/Banner.png "a title")
+![Js in 30 days Banner](/Jsin30days.jpg "a title")
 ## JS IN 30 DAYS CHALLENGE
 I am challenging myself to learn JavaScript within the 30days time frame but with rigorous learning process.
 
