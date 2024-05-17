@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Basics</title>
+        
+    </head>
+    <body>
+        <button>Press Me</button>
+        <div id="greetings"></div>
+
+        <script>
+            const button = document.querySelector("button");
+            function greet(){
+                const name = window.prompt("What is your name?");
+                const greeting = document.querySelector('#greetings');
+                greeting.textContent = `Hello ${name}`;
+
+            }
+            button.addEventListener("click", greet);
+        </script>
+    </body>
+</html>
