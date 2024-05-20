@@ -89,3 +89,20 @@ const getMin  = function (x,y) {
 })(2, 3) //This should give 2^ 3 = 8 when printed in console
 ```
 
+### Recursive Function
+```javaScript
+function func_name(parameters..) {
+    //Base Case: condition to stop recursion and return a value directly
+    if (condition) {
+        return value;
+    }
+    //Recursive Case:Logic that simplifies the problem and calls the function
+    const result = functionName(modifiedArguments);
+    //
+}
+```
+### Planned Task project for learning Recursive Function
+* Palindrome check on string
+* Factorial of a number
+* Sum of Digit in a non - negative number
+* Fibonacci Implemenation 
