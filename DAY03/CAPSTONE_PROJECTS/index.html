@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Goal Tracker</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Additional CSS for styling */
+    .day-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;  /* Increase width */
+      height: 60px;  /* Increase height */
+      border: 1px solid #ccc;
+      cursor: pointer;
+      margin: 2px;
+      font-size: 20px;  /* Increase font size */
+    }
+    .checked {
+      background-color: lightgreen;
+    }
+    .unchecked {
+      background-color: lightcoral;
+      text-decoration: line-through;
+    }
+    .row-box {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Monthly Goal Tracker</h1>
+    <div class="row mb-3">
+      <div class="col">
+        <button id="prevMonthBtn" class="btn btn-primary">&lt; Previous Month</button>
+      </div>
+      <div class="col text-center">
+        <h2 id="currentMonth"></h2>
+      </div>
+      <div class="col text-right">
+        <button id="nextMonthBtn" class="btn btn-primary">Next Month &gt;</button>
+      </div>
+    </div>
+    <div class="calendar">
+      <!-- Calendar days will be generated here -->
+    </div>
+  </div>
+  <script>
+    // JavaScript for creating the calendar and tracking functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const calendar = document.querySelector('.calendar');
+      const currentDate = new Date();
+      let currentYear = currentDate.getFullYear();
+      let currentMonth = currentDate.getMonth();
+
+      // Update calendar when navigating to previous month
+      document.getElementById('prevMonthBtn').addEventListener('click', function() {
+        currentMonth--;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        }
+        updateCalendar();
+      });
+
+      // Update calendar when navigating to next month
+      document.getElementById('nextMonthBtn').addEventListener('click', function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        }
+        updateCalendar();
+      });
+
+      // Initial calendar update
+      updateCalendar();
+
+      // Function to update calendar based on current month
+      function updateCalendar() {
+        const monthName = new Date(currentYear, currentMonth, 1).toLocaleString('default', { month: 'long' });
+        document.getElementById('currentMonth').textContent = `${monthName} ${currentYear}`;
+        calendar.innerHTML = ''; // Clear previous month's calendar
+
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        let rowBox = document.createElement('div');
+        rowBox.classList.add('row-box');
+        calendar.appendChild(rowBox);
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayBox = document.createElement('div');
+          dayBox.classList.add('day-box');
+          dayBox.textContent = day;
+          dayBox.dataset.day = day;
+          dayBox.dataset.checked = 'false'; // Initialize as unchecked
+          dayBox.addEventListener('click', toggleCheck);
+          rowBox.appendChild(dayBox);
+
+          // Create a new row box every 10 days
+          if (day % 10 === 0 && day !== daysInMonth) {
+            rowBox = document.createElement('div');
+            rowBox.classList.add('row-box');
+            calendar.appendChild(rowBox);
+          }
+        }
+
+        // Automatically cross days that have lapsed
+        if (currentYear === currentDate.getFullYear() && currentMonth === currentDate.getMonth()) {
+          const today = currentDate.getDate();
+          const daysToCross = document.querySelectorAll(`.calendar .day-box[data-day="${today}"]`);
+          daysToCross.forEach(day => {
+            day.classList.add('unchecked');
+            day.classList.remove('checked');
+            day.dataset.checked = 'true';
+          });
+        }
+      }
+
+      // Function to toggle checked/unchecked status
+      function toggleCheck(event) {
+        const dayBox = event.target;
+        const isChecked = dayBox.dataset.checked === 'true';
+        dayBox.dataset.checked = !isChecked;
+        dayBox.classList.toggle('checked', !isChecked);
+        dayBox.classList.toggle('unchecked', isChecked);
+      }
+    });
+  </script>
+</body>
+</html>
