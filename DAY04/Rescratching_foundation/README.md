@@ -43,9 +43,8 @@ The foundations for both languages have somethings in common, and so i think rev
   ```
 * **Null:**
   ```javaScript
-  //Null is referred datatypes with empty value such as array or objects that have the datatype of object  
+  //Null is refered used to denote empty array or objects 
   let score = [] // Here score is null
-  let age = {} //Here the age is Null but is an object data type
   ```
 
 
