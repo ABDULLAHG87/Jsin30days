@@ -9,7 +9,8 @@ function increment()
 }
 
 function save() {
-    document.write('count' + '-')
-    saveEl.innerText = 0
+    let CounterStr = count + '-'
+    saveEl.textContent +=  CounterStr
+    countEl.innerText = 0
     count = 0;
 }
